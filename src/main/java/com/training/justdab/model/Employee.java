@@ -1,9 +1,7 @@
 package com.training.justdab.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Inheritance;
-import jakarta.persistence.InheritanceType;
-import jakarta.persistence.OneToMany;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import jakarta.persistence.*;
 
 import java.util.List;
 
@@ -11,6 +9,7 @@ import java.util.List;
 @Inheritance(strategy = InheritanceType.JOINED)
 public class Employee extends User {
 
+    @JsonBackReference
     @OneToMany(mappedBy = "advisor")
     private List<Client> clients;
 
