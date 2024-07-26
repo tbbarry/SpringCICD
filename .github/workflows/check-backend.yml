@@ -6,6 +6,11 @@ on:
       - main
   pull_request:
 
+env:
+  REGISTRY: ghcr.io
+  IMAGE_NAME: ${{ github.repository }}
+
+
 jobs:
   tests-backend:
     strategy:
@@ -16,6 +21,13 @@ jobs:
             os: ubuntu-latest
             java-version: 21
     runs-on: ${{ matrix.os }}
+
+    permissions:
+      contents: read
+      packages: write
+      attestations: write
+      id-token: write
+
     steps:
       - name: Clone Project
         uses: actions/checkout@v4
