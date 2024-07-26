@@ -54,3 +54,7 @@ jobs:
           name: distribution
           path: |
             **/build/libs
+      - name: Doker build image
+        uses: hoverkraft-tech/compose-action@v2.0.1
+        with:
+          compose-file: ./Docker-compose.yml
