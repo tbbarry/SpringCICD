@@ -34,3 +34,23 @@ jobs:
       - name: Execute Gradle Tests
         run: |
           ./gradlew test
+
+      - name: Store Tests Reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: backend tests
+          path: |
+            **/build/reports/
+            **/build/test-results/   
+
+      - name: Execute Gradle build
+        run: |       
+          ./gradlew build
+
+      - name: Store Production Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: distribution
+          path: |
+            **/build/libs
