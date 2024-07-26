@@ -1,0 +1,40 @@
+version: 0.0.1
+
+networks:
+  my_net:
+
+services:
+  mysql:
+    image: mysql:latest
+    container_name: jusdabmysql
+    ports:
+      - 3333:3306
+    networks:
+      - my_net
+    volumes:
+      #via un volume docker
+      - data:/var/lib/mysql/
+      #dans un dossier du projet
+      #- .data:/var/lib/mysql/
+    environment:
+      - MYSQL_ROOT_PASSWORD=password
+      - MYSQL_DATABASE=just_dab_db
+  backend:
+    depends_on:
+      - mysql
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    container_name: justdab1
+    ports:
+      - 8081:8080
+    networks:
+      - my_net
+    environment:
+      - DATABASE_URL=jdbc:mysql://jusdabmysql:3306/just_dab_db
+      - DATABASE_USERNAME=root
+      - DATABASE_PASSWORD=password
+
+
+volumes:
+    data:
